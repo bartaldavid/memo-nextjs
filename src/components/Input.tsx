@@ -1,26 +1,13 @@
 "use client";
 
-import { FieldValue, Timestamp } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 import { useState } from "react";
-import { type EntryType } from "~/util/EntrySchema";
+import determineEntryType from "~/util/determineEntryType";
 import { saveEntryToFirebase } from "~/util/firebaseContentManagement";
 
-const defaultNoteSetup: EntryType = {
-  text: "",
-  type: "NOTE",
-};
-
 async function saveEntry(text: string) {
-  // TODO refractor this to make it cleaner
-  if (text.trim().startsWith(".")) {
-    await saveEntryToFirebase({ type: "TASK", text: text.replace(".", "") });
-  } else {
-    await saveEntryToFirebase({
-      type: "NOTE",
-      text: text,
-      createdAt: Timestamp.now(),
-    });
-  }
+  const entry = determineEntryType(text);
+  await saveEntryToFirebase({ ...entry, createdAt: Timestamp.now() });
 }
 
 function Input() {
@@ -33,7 +20,13 @@ function Input() {
         value={inputText}
         onChange={(e) => setInputText(e.currentTarget.value)}
       />
-      <button onClick={() => saveEntry(inputText)}>Send!</button>
+      <button
+        onClick={() => {
+          void saveEntry(inputText).then(() => setInputText(""));
+        }}
+      >
+        Send!
+      </button>
     </div>
   );
 }

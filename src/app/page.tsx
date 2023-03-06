@@ -1,5 +1,5 @@
 import Input from "~/components/Input";
-import NotesList from "~/components/NotesList";
+import NotesList from "~/components/EntryList";
 
 function Home() {
   return (

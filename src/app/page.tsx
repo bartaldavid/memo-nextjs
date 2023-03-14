@@ -5,6 +5,7 @@ function Home() {
   return (
     <div>
       <Input />
+      {/* @ts-expect-error Async Server Component */}
       <NotesList />
     </div>
   );

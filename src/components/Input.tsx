@@ -3,7 +3,7 @@
 import { Timestamp } from "firebase/firestore";
 import { useState } from "react";
 import determineEntryType from "~/util/determineEntryType";
-import { saveEntryToFirebase } from "~/util/firebaseContentManagement";
+import { saveEntryToFirebase } from "~/firebase/firebaseContentManagement";
 
 async function saveEntry(text: string) {
   const entry = determineEntryType(text);

@@ -3,7 +3,7 @@ import { type Timestamp } from "firebase/firestore";
 export type EntryType = "NOTE" | "EVENT" | "TASK" | "TITLE";
 
 export type Entry = {
-  id?: string;
+  id: string;
   createdAt?: Timestamp;
   text: string;
   parentId?: string;

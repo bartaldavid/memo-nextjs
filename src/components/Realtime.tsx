@@ -5,6 +5,7 @@ export const revalidate = 0;
 
 async function RealtimeServerPosts() {
   const entries = await getEntries();
+  // FIXME only plain objects can be passed down, not even dates are ok
   return <EntryList serverEntries={entries} />;
 }
 

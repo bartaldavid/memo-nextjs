@@ -4,7 +4,9 @@ export type EntryType = "NOTE" | "EVENT" | "TASK" | "TITLE";
 
 export type Entry = {
   id: string;
+  // FIXME required?
   createdAt?: Timestamp;
+  createdAtDate?: Date;
   text: string;
   parentId?: string;
   // we'll see if we need the title type

@@ -1,14 +1,22 @@
 import { deleteEntry } from "~/firebase/firebaseContentManagement";
 import { Entry } from "~/util/EntrySchema";
+import EntryTextField from "./EntryTextField";
 import TaskCheckBox from "./TaskCheckbox";
 
 function Entry({ entry }: { entry: Entry }) {
   return (
-    <div className="flex gap-2 bg-slate-50">
+    <div className="flex gap-2  rounded bg-slate-50 p-2 hover:bg-slate-100">
       {entry.type === "TASK" && <TaskCheckBox entry={entry} />}
+
       <span>{entry.type}</span>
-      <span className="flex-1 hover:bg-slate-200">{entry.text}</span>
-      <span>{entry.createdAt?.toDate?.().toDateString() ?? "No date"}</span>
+
+      {entry?.parentId && <span>CHILD</span>}
+      <EntryTextField text={entry.text} id={entry.id} />
+
+      <span className="text-slate-300">
+        {entry.createdAt?.toDate?.().toDateString() ?? "No date"}
+      </span>
+
       <button className="text-red-500" onClick={() => void deleteEntry(entry)}>
         Delete
       </button>

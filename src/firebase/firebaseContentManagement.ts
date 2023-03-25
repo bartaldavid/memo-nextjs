@@ -14,12 +14,18 @@ import { db } from "./config";
 
 const ENTRIES_COLLECTION = "entries";
 
-export async function saveNewEntryToFirebase(text: string, type: EntryType) {
-  const docRef = await addDoc(collection(db, ENTRIES_COLLECTION), {
+export async function saveNewEntryToFirebase(
+  text: string,
+  type: EntryType,
+  parentId?: string
+) {
+  const entry = {
     text,
     type,
+    ...(parentId && { parentId }),
     createdAt: Timestamp.now(),
-  });
+  };
+  const docRef = await addDoc(collection(db, ENTRIES_COLLECTION), entry);
   console.log("Document written with id: ", docRef.id);
 }
 
@@ -42,4 +48,9 @@ export async function toggleTaskCompletion(entry: Entry) {
 
 export async function deleteEntry(entry: Entry) {
   await deleteDoc(doc(db, ENTRIES_COLLECTION, entry.id));
+}
+
+export async function updateEntryText(id: string, newText: string) {
+  const taskRef = doc(db, ENTRIES_COLLECTION, id);
+  await updateDoc(taskRef, { text: newText });
 }

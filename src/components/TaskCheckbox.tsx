@@ -5,8 +5,9 @@ function TaskCheckBox({ entry }: { entry: Entry }) {
   return (
     <input
       type="checkbox"
-      defaultChecked={entry.completed}
+      checked={entry.completed}
       onChange={() => void toggleTaskCompletion(entry)}
+      className="rounded"
     />
   );
 }

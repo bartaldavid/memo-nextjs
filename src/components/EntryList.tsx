@@ -14,7 +14,6 @@ function EntryList({ serverEntries }: { serverEntries: Entry[] }) {
 
   useEffect(() => {
     const q = query(collection(db, "entries"), orderBy("createdAt"));
-    const result: Entry[] = [];
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       // const entries = [];
       const result: Entry[] = querySnapshot.docs.map((doc) => {
@@ -23,7 +22,6 @@ function EntryList({ serverEntries }: { serverEntries: Entry[] }) {
       });
       setEntries(result);
     });
-    console.log("setting state with", result);
 
     return unsubscribe;
   }, []);

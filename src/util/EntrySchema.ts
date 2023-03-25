@@ -10,4 +10,5 @@ export type Entry = {
   // we'll see if we need the title type
   type: EntryType;
   position?: number;
+  completed?: boolean;
 };

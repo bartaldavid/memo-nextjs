@@ -7,6 +7,7 @@ export type Entry = {
   // FIXME required?
   createdAt?: Timestamp;
   createdAtDate?: Date;
+  createdAtDateString?: string;
   text: string;
   parentId?: string;
   // we'll see if we need the title type

@@ -29,16 +29,6 @@ export async function saveNewEntryToFirebase(
   console.log("Document written with id: ", docRef.id);
 }
 
-// TODO error handling
-// export async function getEntries() {
-//   const q = query(collection(db, ENTRIES_COLLECTION), orderBy("createdAt"));
-//   const snapshot = await getDocs(q);
-//   const entries: Entry[] = snapshot.docs.map((doc) => {
-//     return { ...doc.data(), id: doc.id } as Entry;
-//   });
-//   return entries;
-// }
-
 export async function toggleTaskCompletion(entry: Entry) {
   if (entry.type !== "TASK") throw new Error("Not a task entry");
 

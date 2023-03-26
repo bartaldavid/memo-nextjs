@@ -1,12 +1,12 @@
 import Input from "~/components/Input";
-import RealtimeServerPosts from "~/components/Realtime";
+import ServerSideEntryList from "~/components/ServerSideEntryList";
 
 function Home() {
   return (
     <div>
       <Input />
       {/* @ts-expect-error Async Server Component */}
-      <RealtimeServerPosts />
+      <ServerSideEntryList />
     </div>
   );
 }

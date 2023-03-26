@@ -1,22 +1,23 @@
 import { query, collection, orderBy, getDocs } from "firebase/firestore";
 import { db } from "~/firebase/config";
 import { ENTRIES_COLLECTION } from "~/firebase/firebaseContentManagement";
-import { type Entry } from "~/util/EntrySchema";
-import EntryList from "./EntryList";
+import { type Entry } from "./EntrySchema";
 
-export const revalidate = 0,
-  dynamic = "force-dynamic";
+// TODO error handling
 
-async function RealtimeServerPosts() {
-  // FIXME createdAt shouldn't be a string
+export async function getEntries() {
   const q = query(collection(db, ENTRIES_COLLECTION), orderBy("createdAt"));
   const snapshot = await getDocs(q);
   const entries: Entry[] = snapshot.docs.map((doc) => {
     return { ...doc.data(), id: doc.id } as Entry;
   });
-  console.log(entries);
-  // FIXME only plain objects can be passed down, not even dates are ok
-  return <EntryList serverEntries={entries} />;
+  return entries;
 }
 
-export default RealtimeServerPosts;
+export function transformServerEntries(serverEntries: Entry[]): Entry[] {
+  return serverEntries.map((entry) => {
+    const dateString = entry.createdAt?.toDate().toDateString();
+    delete entry.createdAt;
+    return { ...entry, createdAtDateString: dateString };
+  });
+}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { type Entry } from "~/util/EntrySchema";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "~/firebase/config";
+import { transformServerEntries } from "~/util/getStaticEntryList";
 
 // this should be a server component fetching and rendering entries
 // TODO hydrate this with onsnapshot to listen to realtime updates
@@ -20,11 +21,11 @@ function EntryList({ serverEntries }: { serverEntries: Entry[] }) {
         // console.log(doc.data());
         return { ...doc.data(), id: doc.id } as Entry;
       });
-      setEntries(result);
+      setEntries(transformServerEntries(result));
     });
 
     return unsubscribe;
-  }, []);
+  }, [serverEntries]);
 
   // TODO error handling
   // if (error) return <div>Error occured during fetching, {error}</div>

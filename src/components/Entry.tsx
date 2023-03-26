@@ -14,7 +14,7 @@ function Entry({ entry }: { entry: Entry }) {
       <EntryTextField text={entry.text} id={entry.id} />
 
       <span className="text-slate-300">
-        {entry.createdAt?.toDate?.().toDateString() ?? "No date"}
+        {entry.createdAtDateString ?? "No date"}
       </span>
 
       <button className="text-red-500" onClick={() => void deleteEntry(entry)}>

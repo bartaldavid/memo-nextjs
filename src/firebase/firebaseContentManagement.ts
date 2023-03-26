@@ -3,16 +3,16 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
-  orderBy,
-  query,
+  // getDocs,
+  // orderBy,
+  // query,
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
 import { type EntryType, type Entry } from "../util/EntrySchema";
 import { db } from "./config";
 
-const ENTRIES_COLLECTION = "entries";
+export const ENTRIES_COLLECTION = "entries";
 
 export async function saveNewEntryToFirebase(
   text: string,
@@ -30,14 +30,14 @@ export async function saveNewEntryToFirebase(
 }
 
 // TODO error handling
-export async function getEntries() {
-  const q = query(collection(db, ENTRIES_COLLECTION), orderBy("createdAt"));
-  const snapshot = await getDocs(q);
-  const entries: Entry[] = snapshot.docs.map((doc) => {
-    return { ...doc.data(), id: doc.id } as Entry;
-  });
-  return entries;
-}
+// export async function getEntries() {
+//   const q = query(collection(db, ENTRIES_COLLECTION), orderBy("createdAt"));
+//   const snapshot = await getDocs(q);
+//   const entries: Entry[] = snapshot.docs.map((doc) => {
+//     return { ...doc.data(), id: doc.id } as Entry;
+//   });
+//   return entries;
+// }
 
 export async function toggleTaskCompletion(entry: Entry) {
   if (entry.type !== "TASK") throw new Error("Not a task entry");

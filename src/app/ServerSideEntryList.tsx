@@ -1,5 +1,5 @@
 import { getEntries, transformServerEntries } from "~/util/getStaticEntryList";
-import EntryList from "./EntryList";
+import EntryList from "../components/EntryList";
 
 export const revalidate = 0,
   dynamic = "force-dynamic";

@@ -1,12 +1,17 @@
+import EntryList from "~/components/EntryList";
 import Input from "~/components/Input";
-import ServerSideEntryList from "~/components/ServerSideEntryList";
+import { getEntries, transformServerEntries } from "~/util/getStaticEntryList";
 
-function Home() {
+export const revalidate = 0;
+
+async function Home() {
+  const entries = await getEntries();
+  const serverEntries = transformServerEntries(entries);
+
   return (
     <div>
       <Input />
-      {/* @ts-expect-error Async Server Component */}
-      <ServerSideEntryList />
+      <EntryList serverEntries={serverEntries} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { getEntries } from "~/firebase/firebaseContentManagement";
 import EntryList from "./EntryList";
 
-export const revalidate = 0, fetchCache = 'auto';
+export const revalidate = 0, dynamic = 'force-dynamic';
 
 async function RealtimeServerPosts() {
   const entries = await getEntries();

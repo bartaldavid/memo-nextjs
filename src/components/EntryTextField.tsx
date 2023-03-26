@@ -13,10 +13,10 @@ function EntryTextField({ text, id }: { text: string; id: string }) {
       value={currentText}
       // timeout to save?
       onChange={(event) => setCurrentText(event.currentTarget.value)}
-      onBlur={async () =>{
-          await updateEntryText(id, currentText)
-          console.log("Successfully updated!")
-        } }
+      onBlur={() => {
+        void updateEntryText(id, currentText);
+        console.log("Successfully updated!");
+      }}
       className="flex-1 bg-transparent outline-none"
       onKeyDown={(event) => {
         if (event.key === "Enter")
